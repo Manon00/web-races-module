@@ -1,0 +1,101 @@
+<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="361px" height="211px" viewBox="-0.5 -0.5 361 211" content="&lt;mxfile pages=&quot;2&quot;&gt;&lt;diagram name=&quot;Offers&quot; id=&quot;929967ad-93f9-6ef4-fab6-5d389245f69c&quot;&gt;3VdLc9owEP41PtLBNpDkCAmQS6eZSTo9C3ttq9Grsgymv76SJeEHJJDOZJL2AtpvX1pp9UkO4ltaryUSxVeeAgmicVoH8V0QReE4DPWfQfYWmUZXFsglTp1RCzzi3+A9HVrhFMqeoeKcKCz6YMIZg0T1MCQl3/XNMk76WQXK4Qh4TBDx6Jdpi//AqSocHs5uWsU94Lxwya+jmVVsUPKcS14xl5FxBlZDkQ/jqiwLlPJdB4qXQXwrOVd2ROtbIGZh/Zp5P7X3Ew3iRaEo0UKoh4169YJzeImzrksCU910L8X7WYr1uCgLlZCIPdRVJr5vRm7ZtohUPkk0IzreQvRyz35VpsoFRTLHLIjnWjsWtf5tZjK2+EhxYXWTjk5BrUaI4Nz5JXrCINuYepS7/ybzxgPfsqyxI1a72gwtNSaGWCHNxH2H+hzhy+n+qlACmepUehzb2GZYloohCq/N9/3SE/SR2YEiTD4mtWYZZQ7F5+8S1/Dy9cYe0MAWpMKa++b2SN01h27hDtidzbng2iojDVtlWPNAvMj0qjjmDiMnrxDFxHD+PZAtmKjnOMaxkpkD1B3Icc4aOAUl99rEafXCWBd3tUTXTt51aNozZdFh6NBfLshdDvkhdstyeuCI7g2k52+7z8J6iJoNJMcSsIqCRApzdlD0nc7S4Seg8ae96HLQv8biiYTdx/BY+YyF6N2A/wspTAakcJC7pDA7QQo378YJkyNOOH6AAUvn5rWqJS6A9ZdFK7srWSoklbdOMaKcpU+FaQmr8rYTD6yaHbGhUv26dWm5VAXPOUNk2aLDjR3u/oYrxalWNA9bMIWPX9u5klcygfPvRD3PHNQF1GoquKQRRmGvD2IrSSCa9Lb9fTi15S7uA8fmuj9011W/u6bDm8SW67y6T+ZBoFl8JpBdj6NATQceij3VlFpsvxuseftlFi//AA==&lt;/diagram&gt;&lt;/mxfile&gt;">
+    <defs/>
+    <g>
+        <rect x="0" y="0" width="120" height="110" fill="#ffffff" stroke="#000000" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 122px; height: 110px; padding-top: 0px; margin-left: 0px;">
+                        <div style="box-sizing: border-box; font-size: 0; text-align: left; width: 120px; height: 110px; overflow: hidden; ">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; width: 100%; height: 100%; white-space: nowrap; ">
+                                <p style="margin: 0px ; margin-top: 4px ; text-align: center">
+                                    <b>
+                                        Offer
+                                    </b>
+                                </p>
+                                <hr size="1"/>
+                                <p style="margin: 0px ; margin-left: 4px">
+                                    + firstname
+                                </p>
+                                <p style="margin: 0px ; margin-left: 4px">
+                                    + lastname
+                                </p>
+                                <p style="margin: 0px ; margin-left: 4px">
+                                    + email
+                                </p>
+                                <p style="margin: 0px ; margin-left: 4px">
+                                    + content
+                                </p>
+                                <hr size="1"/>
+                                <p style="margin: 0px ; margin-left: 4px">
+                                    <br/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="0" y="12" fill="#000000" font-family="Helvetica" font-size="12px">
+                    Offer...
+                </text>
+            </switch>
+        </g>
+        <rect x="200" y="120" width="160" height="90" fill="#ffffff" stroke="#000000" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe flex-start; width: 162px; height: 90px; padding-top: 120px; margin-left: 200px;">
+                        <div style="box-sizing: border-box; font-size: 0; text-align: left; width: 160px; height: 90px; overflow: hidden; ">
+                            <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; width: 100%; height: 100%; white-space: nowrap; ">
+                                <p style="margin: 0px ; margin-top: 4px ; text-align: center">
+                                    &lt;&lt;enumeration&gt;&gt;
+                                </p>
+                                <p style="margin: 0px ; margin-top: 4px ; text-align: center">
+                                    <b>
+                                        Type
+                                    </b>
+                                </p>
+                                <hr size="1"/>
+                                <p style="margin: 0px ; margin-left: 4px">
+                                    + crew
+                                </p>
+                                <p style="margin: 0px ; margin-left: 4px">
+                                    + skipper
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="200" y="132" fill="#000000" font-family="Helvetica" font-size="12px">
+                    &lt;&lt;enumeration&gt;&gt;...
+                </text>
+            </switch>
+        </g>
+        <path d="M 135.99 55 L 280 55 L 280 117.76" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 120.99 55 L 128.49 50.59 L 135.99 55 L 128.49 59.41 Z" fill="#000000" stroke="#000000" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 273.5 105.88 L 280 118.88 L 286.5 105.88" fill="none" stroke="#000000" stroke-miterlimit="10" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-end; justify-content: unsafe flex-start; width: 1px; height: 1px; padding-top: 49px; margin-left: 122px;">
+                        <div style="box-sizing: border-box; font-size: 0; text-align: left; ">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; background-color: #ffffff; white-space: nowrap; ">
+                                1
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="122" y="49" fill="#000000" font-family="Helvetica" font-size="11px">
+                    1
+                </text>
+            </switch>
+        </g>
+    </g>
+    <switch>
+        <g requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"/>
+        <a transform="translate(0,-5)" xlink:href="https://www.diagrams.net/doc/faq/svg-export-text-problems" target="_blank">
+            <text text-anchor="middle" font-size="10px" x="50%" y="100%">
+                Viewer does not support full SVG 1.1
+            </text>
+        </a>
+    </switch>
+</svg>
