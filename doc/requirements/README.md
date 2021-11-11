@@ -10,7 +10,7 @@ L'application _Module web de gestion des régates_ doit permettre aux différent
 
 Les acteurs sont donc les suivants :
 
-* l'_adminstrateur_ est une personne du G.C.I. qui a en charge l'administration du module ainsi que la création du calendrier des régates
+* l'_administrateur_ est une personne du G.C.I. qui a en charge l'administration du module ainsi que la création du calendrier des régates
 * le _responsable de club_ doit définir les régates (notament publier l'avis de course et les instructions de course), gérer les inscriptions aux régates puis enfin publier les résultats
 * le _skipper_ peut publier des offres d'embarquement sur la bourse des équipiers et s'inscrire à des régates
 * l'_équipier_ peut publier des demandes d'embarquement sur la bourse des équipiers
