@@ -22,3 +22,5 @@ On distingues deux types d'utilisateur du site :
 
 * les utilisateurs authentifiés qui doivent se connecter pour avoir accès à un certain nombre de fonctions spécialisés
 * les utilisateurs anonymes (non authentifiés) qui peuvent réaliser des actions qui ne requiert pas de connection
+
+Les fonctions relatives à la publication et la consultation des offres sont détaillées dans la section [Bourse aux équipiers](./offers/README.md).
