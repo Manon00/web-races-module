@@ -14,15 +14,16 @@ Pour publier une annonce l'utilisateur _doit_ renseigner les informations suivan
 
 * prénom
 * nom
+* numéro de téléphone
 * email
 * contenu : le texte de l'annonce
 * type : demande d'embarquement (pour les équipiers) ou offre d'embarquement (pour les skippers)
 
 Les champs du formulaire présentés à l'utilisateur _doivent_ être typés pour faciliter l'autocomplétion proposée par les navigateurs internet.
 
-L'application _doit_ pré-remplir les champs prénom, nom et email quand l'utilisateur est un utilisateur authentifié.
+L'application _doit_ pré-remplir les champs prénom, nom, numéro de téléphone et email quand l'utilisateur est un utilisateur authentifié.
 
-L'application _doit_ indiquer à l'utilisateur que les champs prénom, nom, email et type sont obligatoires et ne pas permettre de soumettre le formulaire si ceux-ci sont vide.
+L'application _doit_ indiquer à l'utilisateur que les champs prénom, nom, numéro de téléphone, email et type sont obligatoires et ne pas permettre de soumettre le formulaire si ceux-ci sont vide.
 
 Au moment où l'utilisateur soumet sont annonce l'application _doit_ y adjoindre l'horodatage courant (c'est à dire la date et l'heure).
 
