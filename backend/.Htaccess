@@ -1,5 +1,5 @@
 RewriteEngine On # Activer le module Rewrite
-RewriteRule ^accounts/?$ accounts.php [NC,L]
-RewriteRule ^[^/]+/(\d+)$ accounts.php?id=$1
-RewriteRule ^offers/?$ offers.php [NC,L]
-RewriteRule ^[^/]+/(\d+)$ offers.php?id=$1
+RewriteRule ^offers/(\d+)$ model_offers.php?id=$1 [NC,L]
+RewriteRule ^offers/ model_offers.php [NC,L]
+RewriteRule ^accounts/(\d+)$ model_accounts.php?id=$1 [NC,L]
+RewriteRule ^accounts/ model_accounts.php [NC,L]

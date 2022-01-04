@@ -13,6 +13,9 @@
         <div class="nav-item">
           <router-link to="/offers" class="nav-link">Bourse aux équipiers</router-link>
         </div>
+         <div class="nav-item">
+          <router-link to="/login" class="nav-link">Connexion</router-link>
+        </div>
       </div>
     </nav>
     <router-view />
