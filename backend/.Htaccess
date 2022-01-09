@@ -1,5 +1,6 @@
+#redirection des liens
 RewriteEngine On # Activer le module Rewrite
-RewriteRule ^offers/(\d+)$ model_offers.php?id=$1 [NC,L]
-RewriteRule ^offers/ model_offers.php [NC,L]
-RewriteRule ^accounts/(\d+)$ model_accounts.php?id=$1 [NC,L]
-RewriteRule ^accounts/ model_accounts.php [NC,L]
+RewriteRule ^offers/(\d+)$ model_offers.php?id=$1 [NC,L] #offers/id -> script model_offers.php avec param $id
+RewriteRule ^offers/ model_offers.php [NC,L] #offers/ -> script model_offers.php 
+RewriteRule ^accounts/(\d+)$ model_accounts.php?id=$1 [NC,L] #offers/id -> script model_accounts.php avec param $id
+RewriteRule ^accounts/ model_accounts.php [NC,L] #accounts/ -> script model_accounts.php

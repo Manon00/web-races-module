@@ -34,7 +34,7 @@
     >
       <div class="card-body">
         <p class="card-title">
-          {{ item.first_name }} {{ item.last_name }}
+          {{ item.first_name }} {{ item.last_name }}  ( {{ item.email }} )
         </p>
         <p class="offer_info">
           {{ this.getDateOffer(item.date_creation) }} - {{ this.getTypeOffer(item.type) }}

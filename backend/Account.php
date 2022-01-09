@@ -1,5 +1,5 @@
 <?php
-
+//structure des comptes
 class Account{
     public $id;
     public $first_name;
@@ -11,8 +11,5 @@ class Account{
 
     public function __construct(){
     }
-
-    
 }
-
 ?>
