@@ -38,6 +38,9 @@ CREATE TABLE IF NOT EXISTS `account` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+CREATE TRIGGER `delete_account` BEFORE DELETE ON `account`
+ FOR EACH ROW delete from account_role where account_id=old.id
+
 --
 -- Déchargement des données de la table `account`
 --

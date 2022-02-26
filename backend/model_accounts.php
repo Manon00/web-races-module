@@ -25,7 +25,7 @@
     $account = new Account();
 
     //requête 
-    $sql = "SELECT account.id, first_name, last_name,email,phone_number,description  from account inner join role on account.role=role.id";
+    $sql = "SELECT account.id, first_name, last_name,email,phone_number  from account";
     $query = $conn->prepare($sql);
     $query->execute();
     $stmt=$query;
@@ -37,15 +37,32 @@
       
       while($row = $stmt->fetch(PDO::FETCH_ASSOC)){ //pour toutes les lignes du résultats
           extract($row); //récupération de la ligne
+          //requête 
+        $sqlRoles = "SELECT description FROM `account_role` inner join account on account_id=account.id inner join role on role_id=role.id where account.id=$id;";
+        $queryRoles = $conn->prepare($sqlRoles);
+        $queryRoles->execute();
+        $stmtRoles=$queryRoles;
+        $tableRoles = [];
+        if($stmtRoles->rowCount() > 0){ //si la requête ramène plus qu'une ligne
 
-          //récupération des infos
+          //table des roles
+          
+      
+          while($row = $stmtRoles->fetch(PDO::FETCH_ASSOC)){ //pour toutes les lignes du résultats
+            extract($row); //récupération de la ligne
+  
+            //ajout dans la table
+            $tableRoles[]=$description;
+          }
+        }
+          //récupération des infos du compte
           $account=[
               "id" => $id,
               "first_name" => $first_name,
               "last_name" => $last_name,
               "email" => $email,
               "phone_number" => $phone_number,
-              "role" => $description,
+              "roles" => $tableRoles
           ];
 
           //ajout dans la table
@@ -71,7 +88,7 @@
     $account = new Account();
 
     //requête 
-    $sql = "SELECT account.id, first_name, last_name,email,phone_number,description  from account inner join role on account.role=role.id where account.id=$idAccount";
+    $sql = "SELECT account.id, first_name, last_name,email,phone_number  from account where account.id=$idAccount";
     $query = $conn->prepare($sql);
     $query->execute();
     $stmt=$query;
@@ -80,27 +97,45 @@
 
       if($row = $stmt->fetch(PDO::FETCH_ASSOC)){ 
         extract($row); //récupération de la ligne
+        
+        //requête 
+        $sqlRoles = "SELECT description FROM `account_role` inner join account on account_id=account.id inner join role on role_id=role.id where account.id=$idAccount;";
+        $queryRoles = $conn->prepare($sqlRoles);
+        $queryRoles->execute();
+        $stmtRoles=$queryRoles;
+        $tableRoles = [];
+        if($stmtRoles->rowCount() > 0){ //si la requête ramène plus qu'une ligne
 
-        //récuperation des info
+          //table des roles
+          
+      
+          while($row = $stmtRoles->fetch(PDO::FETCH_ASSOC)){ //pour toutes les lignes du résultats
+            extract($row); //récupération de la ligne
+  
+            //ajout dans la table
+            $tableRoles[]=$description;
+          }
+        }
+        //récuperation des info sur le compte
         $account=[
               "id" => $id,
               "first_name" => $first_name,
               "last_name" => $last_name,
               "email" => $email,
               "phone_number" => $phone_number,
-              "role" => $description,
-        ];}
-        
+              "roles" => $tableRoles
+        ];
+      }
+    }
         //affichage du compte
         echo json_encode($account);
 
         //code de réussite
         http_response_code(200);
-    }
   }
 
 
-  
+
   //récupération des infos de login
 function getLogin($email,$pw){
   //connexion    
@@ -146,18 +181,35 @@ function getLogin($email,$pw){
 
     $jwt = JWT::encode($token, $secret_key);
 
+    //requête 
+    $sqlRoles = "SELECT description FROM `account_role` inner join account on account_id=account.id inner join role on role_id=role.id where account.id=$id;";
+    $queryRoles = $conn->prepare($sqlRoles);
+    $queryRoles->execute();
+    $stmtRoles=$queryRoles;
+    $tableRoles = [];
+    if($stmtRoles->rowCount() > 0){ //si la requête ramène plus qu'une ligne
+
+      //table des roles
+      
+  
+      while($row = $stmtRoles->fetch(PDO::FETCH_ASSOC)){ //pour toutes les lignes du résultats
+        extract($row); //récupération de la ligne
+
+        //ajout dans la table
+        $tableRoles[]=$description;
+      }
+    }
+
     //infos de login
     $login=[
       "message" => "Success login.",
       "jwt" => $jwt,
       "id" => $id,
-      "expireAt" => $expire_claim];
+      "expireAt" => $expire_claim,
+      "roles" => $tableRoles];
     
     //affichage des infos de login
     echo json_encode($login);     
-
-    //code de réussite
-    http_response_code(200);
 
   }else{//la requete n'a rien retournée
 
@@ -169,19 +221,94 @@ function getLogin($email,$pw){
   
     //affiche des infos de login
     echo json_encode($login);
-
-    //code d'erreur
-    http_response_code(401);
   }
+    //code de réussite
+    http_response_code(200);
+}
+
+//ajout d'un compte
+function addAccount($first_name, $last_name, $email,$phone_number, $password,$type)
+{
+  //connexion
+  global $conn;
+
+  //requête ajout
+  $sql = "insert into account( first_name, last_name,email,phone_number,password ) values ('$first_name', '$last_name', '$email','$phone_number', '$password') returning id;";
+  $query = $conn->prepare($sql);
+  $query->execute();
+  $stmt=$query;
+
+  if($stmt->rowCount() > 0){ //si la requete retourne un résultat
+        
+    $row = $stmt->fetch(PDO::FETCH_ASSOC); //récuperation de la ligne
+
+    $id = $row['id'];
+
+    
+  switch($type)
+  {
+    case 'skipper':
+      $role=3;
+      break;
+    case 'crew':
+      $role=4;
+      break;
+    default:
+      $role=0;
+      break;
+    }
+  //requête role
+  $sqlRole = "insert into account_role(account_id,role_id ) values ($id,$role)";
+  $queryRole = $conn->prepare($sqlRole);
+  $queryRole->execute();
+  }
+  
+
+  //code de réussite
+  http_response_code(200);
+}
+
+
+//ajout d'un compte anonyme
+function addAccountAnonyme($first_name, $last_name, $email,$phone_number)
+{
+  //connexion
+  global $conn;
+  
+
+  //requête ajout
+  $sql = "insert into account( first_name, last_name,email,phone_number ) values ('$first_name', '$last_name', '$email','$phone_number') returning id;";
+  $query = $conn->prepare($sql);
+  $query->execute();
+  $stmt=$query;
+
+  if($stmt->rowCount() > 0){ //si la requete retourne un résultat
+        
+    $row = $stmt->fetch(PDO::FETCH_ASSOC); //récuperation de la ligne
+
+    $id = $row['id'];
+
+    
+  $role=5;
+  //requête role
+  $sqlRole = "insert into account_role(account_id,role_id ) values ($id,$role)";
+  $queryRole = $conn->prepare($sqlRole);
+  $queryRole->execute();
+  }
+  
+
+  //code de réussite
+  http_response_code(200);
 }
 /////////////////////////////////////////////
 
 
 ///////////////////////////////////////////
 //GESTION DES REQUETES A L'API
-
+  header("Access-Control-Allow-Origin: *");
+  header("Access-Control-Allow-Origin: http://localhost:8080");
   header("Content-Type: application/json; charset=UTF-8");
-  
+  header("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
   //vérification de la méthode de requete
   switch($request_method)
   {
@@ -198,18 +325,27 @@ function getLogin($email,$pw){
       }
       break;
     case 'POST':
-      if(!empty($_POST['email']) && !empty($_POST['password'])){ //s'il y a un email et un mot de passe 
-        /* exemple :
-          api/accounts/ 
-          form_data : {email : "email", password : "password"}
-          */
-
-        //recupérer les infos de connection
-        getLogin($_POST['email'],$_POST['password']);
-      }else{
-        //code erreur de requete
-        http_response_code(400);
-      }
+            if(!empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['email']) && !empty($_POST['phone_number']) && !empty($_POST['password']) && !empty($_POST['type'])){ //s'il y a des informations d'inscription 
+              //ajouter le compte
+              addAccount($_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['phone_number'], $_POST['password'], $_POST['type']);
+            }else{
+              if(!empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['email']) && !empty($_POST['phone_number'])){
+                //ajouter le compte anonyme
+                addAccountAnonyme($_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['phone_number']);  
+              }else{
+                if(!empty($_POST['email']) && !empty($_POST['password'])){ //s'il y a un email et un mot de passe 
+                  /* exemple :
+                    api/accounts/ 
+                    form_data : {email : "email", password : "password"}
+                  */
+                  //recupérer les infos de connection
+                  getLogin($_POST['email'],$_POST['password']);
+                }else{
+                  http_response_code(400);
+                }
+              }
+            }
+          
       break;
     default:
       // Requête invalide

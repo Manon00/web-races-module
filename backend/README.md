@@ -31,6 +31,22 @@ api/accounts/
 form_data = {email : <email>, password : <password>}
 ```
 
+
+Ajouter un compte
+```
+api/accounts/
+
+form_data = {first_name : <prenom>, last_name : <nom>, email : <email>, phone_number : <numéro de téléphone>, password : <password>, type : <type>}
+```
+
+
+Ajouter un compte anonyme
+```
+api/accounts/
+
+form_data = {first_name : <prenom>, last_name : <nom>, email : <email>, phone_number : <numéro de téléphone>}
+```
+
 ## Modèle Offers
 
 #### GET
@@ -59,3 +75,10 @@ status :
  - 'remove' pour supprimer (refuser)
 
 
+
+Ajouter une offre
+```
+api/offers/
+
+form_data = {writer_id : <id de l'auteur>, content : <contenu>, type : <type>} 
+```

@@ -6,10 +6,11 @@ class Account{
     public $last_name;
     public $email;
     public $phone_number;
-    public $role;
     public $password;
+    public $roles;
 
     public function __construct(){
     }
 }
+
 ?>

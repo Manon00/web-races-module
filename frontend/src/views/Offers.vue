@@ -1,9 +1,14 @@
 <template>
   <!-- eslint-disable max-len -->
   <div class="container">
-    <!--
-      @todo Afficher ici la liste des annonces de la bourse aux équipiers.
-    -->
+
+  <button v-if="showAdminBoard" @click="toAdmin()">
+      Admin
+  </button>
+
+  <button @click="toPost()">
+      Poster une offre
+  </button>
 
     <h1>Offres :</h1>
     <span> Dates : </span>
@@ -17,14 +22,6 @@
       <option value="default">Tous</option>
       <option value="crew">Equipier</option>
       <option value="skipper">Embarquement</option>
-    </select>
-
-    <span> Status des offres : </span>
-    <select v-model="status" v-on:change="handle_filter">
-      <option value="default">Tous</option>
-      <option value="validate">Validées</option>
-      <option value="to_validate">A valider</option>
-      <option value="obsolete">Obsolètes</option>
     </select>
 
     <div
@@ -42,22 +39,6 @@
 
             <td v-if="!readMore[item.offer_id]">{{item.content.substring(0, 100) + "... "}}<button @click="readMore[item.offer_id]=true">Voir Plus</button></td>
             <td v-if="readMore[item.offer_id]">{{item.content+" "}}<button @click="readMore[item.offer_id]=false">Vois Moins</button></td>
-
-          <div class="status">
-            <div v-if="item.status=='validate'" class="validate">
-              <p>Offre validée</p>
-              <button @click="changeStatus(item.offer_id,'archive')">Archiver offre</button>
-            </div>
-            <div v-if="item.status=='to_validate'" class="to_validate">
-              <p>Offre à valider</p>
-              <button @click="changeStatus(item.offer_id,'validate')">Valider offre</button>
-              <button @click="removeOffer(item.offer_id)">Refuser offre</button>
-            </div>
-            <div v-if="item.status=='obsolete'" class="obsolete">
-              <p>Offre obsolète</p>
-              <button @click="changeStatus(item.offer_id,'unarchive')">Désarchiver offre</button>
-            </div>
-          </div>
       </div>
      
     </div>
@@ -75,14 +56,17 @@ export default defineComponent({
       offers: null,
       errorMessage: null,
       type: 'default',
-      status: 'default',
       date: 'desc',
       readMore: [],
+      currentUser : this.$store.state.auth.user,
+      showAdminBoard: false
     };
   },
   created() {
-    console.log(this.$store.state.test);
     this.getOffer();
+    if (this.currentUser && this.currentUser.roles) {
+        this.showAdminBoard = this.currentUser.roles.includes('admin');
+      }
   },
   methods: {
     getOffer(){
@@ -107,21 +91,19 @@ export default defineComponent({
     },
     sort_type() {
       if(this.type !== 'default'){
-        this.offers = this.offers.filter(e => e.type === this.type)
+        this.offers = this.offers.filter((e : any) => e.type === this.type)
       }
     },
     sort_status() {
-      if(this.status !== 'default'){
-        this.offers = this.offers.filter(e => e.status === this.status)
-      }
+      this.offers = this.offers.filter((e : any) => e.status === 'validate')
     },
     sort_date() {
         if (this.date === 'desc') {
-          this.offers = this.offers.sort((a,b) => {
+          this.offers = this.offers.sort((a : any,b : any) => {
             return Number(new Date(b.date_creation)) - Number(new Date(a.date_creation));
           })
         }else{
-          this.offers = this.offers.sort((a,b) => {
+          this.offers = this.offers.sort((a : any,b : any) => {
             return Number(new Date(a.date_creation)) - Number(new Date(b.date_creation));
           })
         }
@@ -135,44 +117,24 @@ export default defineComponent({
        }
        
     },
-    getDateOffer($date){
+    getDateOffer($date : any){
       const $d = new Date($date);
 
       return $d.getDate() + "/" + $d.getMonth() + "/" + $d.getFullYear() + " - " + $d.getHours() + ":" + $d.getMinutes();
     },
-    getTypeOffer($type){
+    getTypeOffer($type : any){
       if($type === 'crew'){
         return "Equipier";
       }else{
         return "Embarquement"
       }
     },
-    changeStatus($id, $param){
-       const formData = new FormData();
-        formData.append('status', $param);
-       axios.post('http://localhost/backend/offers/'+$id, formData)
-                 .then((res) => {
-                     //Perform Success Action
-                     this.getOffer();
-                 })
-                 .catch((error) => {
-                     this.errorMessage = error;
-                    console.error('There was an error!', error);
-                 })  
+    toAdmin(){
+      this.$router.push('/offersAdmin');
     },
-    removeOffer($id){
-       const formData = new FormData();
-        formData.append('status', 'remove');
-       axios.post('http://localhost/backend/offers/'+$id, formData)
-                 .then((res) => {
-                     //Perform Success Action
-                     this.getOffer();
-                 })
-                 .catch((error) => {
-                     this.errorMessage = error;
-                    console.error('There was an error!', error);
-                 })  
-    },
+    toPost(){
+      this.$router.push('/post');
+    }
   }
 });
 </script>

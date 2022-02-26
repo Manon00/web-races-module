@@ -29,5 +29,14 @@
       ),
       'reference' => '83b609028194aa042ea33b5af2d41a7427de80e6',
     ),
+    'phpmailer/phpmailer' => 
+    array (
+      'pretty_version' => 'v6.5.3',
+      'version' => '6.5.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'baeb7cde6b60b1286912690ab0693c7789a31e71',
+    ),
   ),
 );

@@ -1,7 +1,14 @@
 <?php
+  //envoi de mail
+  use PHPMailer\PHPMailer\PHPMailer;
+  use PHPMailer\PHPMailer\Exception;
+  require './vendor/phpmailer/phpmailer/src/Exception.php';
+  require './vendor/phpmailer/phpmailer/src/PHPMailer.php';
+  require './vendor/phpmailer/phpmailer/src/SMTP.php';
+
   //connection à la base
   include("db_connect.php");
-
+  
   //structure des offres
   include('./Offer.php');
 
@@ -190,16 +197,87 @@
     }
 
     //suppression d'une offre
-    function removeOffer($idOffer){
+    function removeOffer($idOffer,$raison){
       //connexion
       global $conn;
 
       //requete
-      $sql = "delete from offer where id=$idOffer";
+      $sql = "SELECT first_name,last_name,email,content, DATE_FORMAT(date_creation, '%d/%m/%Y - %H:%i') as date_creation,type FROM `offer` inner join `account` on `offer`.writer_id=`account`.id where `offer`.id=$idOffer";
       $query = $conn->prepare($sql);
       $query->execute();
       $stmt=$query;
       
+      if($stmt->rowCount() > 0){//si la requête ramène plus qu'une ligne
+
+        if($row = $stmt->fetch(PDO::FETCH_ASSOC)){ 
+          extract($row); //récupération de la ligne
+    
+      
+        //mail
+        $mail = new PHPMailer();
+        $mail->IsSMTP();
+        $mail->SMTPDebug = 3;
+        $mail->Mailer = "smtp";
+        $mail->SMTPDebug  = 1;  
+        $mail->SMTPAuth   = TRUE;
+        $mail->SMTPSecure = "tsl";
+        $mail->Port       = 587;
+        $mail->Host       = "smtp.gmail.com";
+        $mail->Username   = "mgoasguen0@gmail.com";
+        $mail->Password   = "Mgeg2408fc!";
+
+        $message = "<p>Bonjour $first_name $last_name,</p>";
+        $message .= "<p>Votre offre créée le $date_creation pour la bourses aux équipiers sur le site du GCI a été refusée et supprimée pour les raisons suivante : $raison</p>";
+        $message .= "<p>Type de l'offre : $type</p>";
+        $message .= "<p>Contenu : $content</p>";
+
+        $mail->IsHTML(true);
+        $mail->AddAddress("mgoasguen0@gmail.com", "");
+        $mail->SetFrom("noreply@gmail.com", "GCI");
+        $mail->Subject = 'GCI - Bourse aux équipiers ';
+
+        $mail->MsgHTML($message); 
+        if(!$mail->Send()) {
+          echo "Error while sending Email.";
+          var_dump($mail);
+        } else {
+          echo "Email sent successfully";
+        }
+        /*
+        $message = "<p>Bonjour $first_name $last_name,</p>";
+        $message .= "<p>Votre offre créée le $date_creation pour la bourses aux équipiers sur le site du GCI a été refusée et supprimée pour les raisons suivante : $raison</p>";
+        $message .= "<p>Type de l'offre : $type</p>";
+        $message .= "<p>Contenu : $content</p>";
+        $to_email = 'mgoasguen0@gmail.com';
+        $subject = 'GCI - Bourse aux équipiers ';
+        $headers[] = 'MIME-Version: 1.0';
+        $headers[] = 'Content-type: text/html; charset=UTF-8';
+        $headers[] = 'From: GCI <noreply@gmail.com>';
+
+        mail($to_email, $subject, $message, implode("\r\n", $headers));
+        */
+        //  //requete suppression
+        //  $sqlD = "delete from offer where id=$idOffer";
+        //  $queryD = $conn->prepare($sqlD);
+        //  $queryD->execute();
+    }
+  }
+
+      http_response_code(200);
+    }
+
+    //ajout d'une offre
+    function addOffer($idWriter, $content,$type)
+  {
+    //connexion
+    global $conn;
+
+    //requete
+    $sql = "insert into offer (writer_id, content, date_creation, type) values ($idWriter, '$content',NOW(),'$type')";
+    $query = $conn->prepare($sql);
+    $query->execute();
+    
+      //code de réussite
       http_response_code(200);
     }
 
@@ -230,9 +308,12 @@
       break;
     case 'POST':
       switch(true){
+        case (!empty($_POST["writer_id"]) && !empty($_POST['content']) && !empty($_POST['type'])) : //il y a un writer_id, un content et un type passés en parametres
+          addOffer($_POST["writer_id"], $_POST['content'],$_POST['type']);
+        break;
         case (!empty($_GET["id"]) && !empty($_POST['status'])) : //il y a un id et un status passés en parametres
           /* exemple :
-            api/accounts/1
+            api/offers/1
             form_data : {status : 'validate'}
           */
           //verification du parametre status
@@ -243,7 +324,7 @@
               break; 
             case 'unarchive' : removeDateObsolescence($_GET['id']); //désarchiver offre
               break;
-            case 'remove' : removeOffer($_GET['id']); //refuser offre, suprimer offre
+            case 'remove' : removeOffer($_GET['id'],$_POST['raison']); //supprimer offre
             break;
             default : http_response_code(400);  //erreur le parametre ne correspond à aucune action
           }

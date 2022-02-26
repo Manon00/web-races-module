@@ -8,9 +8,9 @@
   //info sur la base
   $host="127.0.0.1";
   $port="3307";
-  $dbname="projet_gci";
+  $dbname="bdd_gci";
 
-  $add='mysql:host='+ $host +';port='+ $port +';dbname='+ $dbname;
+  $add="mysql:host=$host;port=$port;dbname=$dbname";
 
   //connexion
   $conn = null;
