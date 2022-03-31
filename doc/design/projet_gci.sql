@@ -41,6 +41,9 @@ CREATE TABLE IF NOT EXISTS `account` (
 CREATE TRIGGER `delete_account` BEFORE DELETE ON `account`
  FOR EACH ROW delete from account_role where account_id=old.id
 
+CREATE TRIGGER `delete_account_offer` BEFORE DELETE ON `account`
+ FOR EACH ROW delete from offer where writer_id=old.id
+ 
 --
 -- Déchargement des données de la table `account`
 --

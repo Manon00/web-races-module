@@ -77,7 +77,7 @@ export default defineComponent({
       status: 'default',
       date: 'desc',
       readMore: [],
-      currentUser : this.$store.state.auth.user,
+      currentUser : this.$store.auth.user,
     };
   },
   created() {
@@ -168,7 +168,7 @@ export default defineComponent({
                  })  
     },
     removeOffer($id : any){
-       const raison="parce que"
+       const raison=prompt("Raison de la suppression / du refus de l'offre : ");
        const formData = new FormData();
         formData.append('status', 'remove');
         formData.append('raison', raison);

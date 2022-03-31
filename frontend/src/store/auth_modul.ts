@@ -1,9 +1,27 @@
+import router from '@/router';
+import { isMemberExpressionNode } from '@vue/compiler-core';
 import AuthService from '../services/auth_service';
 
-const user = JSON.parse(localStorage.getItem('user'));
-const initialState = user
-  ? user.id != -1 ? { status: { loggedIn: true }, user} : { status: { loggedIn: false }, user :null }
-  : { status: { loggedIn: false }, user :null };
+let user = (JSON.parse(localStorage.getItem("user")|| '')).toString();
+
+if(user){
+  if(user.expireAt < new Date().getTime()/1000){
+    localStorage.removeItem("user");
+    router.push('/');
+  }
+}
+if(!localStorage.getItem("user")== null){
+  user = (JSON.parse(localStorage.getItem("user")|| '')).toString();
+}
+
+
+const initialState = user ? 
+                      user.id != -1 ? 
+                        { status: { loggedIn: true }, user} 
+                        : 
+                        { status: { loggedIn: false }, user :null }
+                      : 
+                      { status: { loggedIn: false }, user :null };
 
 export const auth = {
   namespaced: true,
@@ -56,12 +74,5 @@ export const auth = {
       state.status.loggedIn = false;
       state.user = null;
     },
-    // registerSuccess(state) {
-    //   state.status.loggedIn = false;
-    // },
-    // registerFailure(state) {
-    //   state.status.loggedIn = false;
-    // }
-  }
-
+  },
 };
